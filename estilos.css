@@ -1,0 +1,300 @@
+:root {
+    --color-crema: #FFD7AF;
+    --color-oscuro: #1a0f08;
+    --serif-font: 'Cormorant Garamond', serif;
+    --script-font: 'Ballet', cursive;
+    --sans-font: 'Montserrat', sans-serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--color-oscuro);
+    color: var(--color-crema);
+    font-family: var(--sans-font);
+}
+
+/* --- NAVEGACIÓN --- */
+
+.nav-principal {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    padding: 40px 0; /* Nav más espacioso al inicio */
+    transition: all 0.5s ease;
+    background: transparent;
+}
+
+/* Estado del Nav al hacer scroll */
+.nav-scrolled {
+    padding: 15px 0;
+    background: rgba(26, 15, 8, 0.85);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(245, 230, 211, 0.1);
+}
+
+.nav-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    padding: 0 30px;
+}
+
+.nav-links {
+    display: flex;
+    gap: 40px;
+    justify-content: center;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: var(--color-crema);
+    font-size: 0.75rem;
+    letter-spacing: 2px;
+    font-weight: 300;
+    transition: opacity 0.3s;
+}
+
+.nav-links a:hover { opacity: 0.6; }
+
+.nav-logo img {
+    height: 70px; /* Logo más grande y presente */
+    transition: height 0.5s ease;
+}
+
+.nav-scrolled .nav-logo img { height: 50px; }
+
+
+
+.menu-icon span {
+  background: var(--primary-color);
+}
+
+.menu-icon {
+  color: var(--primary-color);
+}
+
+/* Links del nav en menú abierto */
+.nav.active a {
+  color: var(--white);
+}
+
+
+/* --- HERO / HEADER --- */
+.hero {
+    height: 100vh;
+    width: 100%;
+    background: linear-gradient(rgba(26, 15, 8, 0.5), rgba(26, 15, 8, 0.5)), 
+                url('img/header-pagina-web.png'); /* Tu imagen aquí */
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.titulo-gabinete {
+    line-height: 0.8;
+}
+
+.serif-text {
+    display: block;
+    font-family: var(--serif-font);
+    font-size: clamp(3rem, 8vw, 6rem); /* Responsive automático del texto */
+    letter-spacing: 8px;
+    font-weight: 300;
+}
+
+.serif-text.small {
+    font-size: clamp(1.5rem, 4vw, 2.5rem);
+    letter-spacing: 4px;
+    margin: 10px 0;
+    margin-left: -20%;
+}
+
+.script-text {
+    font-family: var(--script-font);
+    font-size: clamp(4rem, 10vw, 8rem);
+    color: var(--color-crema);
+    display: block;
+    margin-top: -20px;
+    margin-left: 50px;
+
+    
+}
+
+.subtitulo {
+    font-size: 0.7rem;
+    letter-spacing: 4px;
+    margin-top: 40px;
+    font-weight: 300;
+    opacity: 0.8;
+}
+
+.btn-scroll {
+    display: inline-block;
+    margin-top: 50px;
+    padding: 12px 30px;
+    border: 1px solid var(--color-crema);
+    color: var(--color-crema);
+    text-decoration: none;
+    font-size: 0.7rem;
+    letter-spacing: 2px;
+    transition: all 0.3s;
+}
+
+.btn-scroll:hover {
+    background: var(--color-crema);
+    color: var(--color-oscuro);
+}
+
+
+
+/* ------ DESKTOP ------ */
+@media screen and (min-width: 1025px) {
+.noVisibleDesktop{
+  display: none;
+}
+
+   } 
+
+
+   /* --- RESPONSIVE (Móvil y Tablet) --- */
+@media (max-width: 1024px) {
+.noVisibletablet{
+  display: none;
+}
+
+    .nav-container {
+        grid-template-columns: 1fr 1fr; /* Logo a la izq, menú a la der */
+    }
+    .desktop-only { display: none; }
+    
+    .nav-logo { justify-self: start; }
+    
+    .mobile-menu-icon {
+        justify-self: end;
+        width: 30px;
+        height: 20px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        cursor: pointer;
+    }
+    
+    .mobile-menu-icon span {
+        height: 1px;
+        background-color: var(--color-crema);
+        width: 100%;
+    }
+
+    .nav-principal { padding: 25px 0; }
+
+/* Posicionar correctamente el botón hamburguesa */
+    .menu-toggle {
+        justify-self: end !important;
+        margin-right: 0;
+        padding-right: 0;
+    }
+    
+    /* Estilos del menú cuando está activo */
+    .nav-principal.active {
+        background: rgba(26, 15, 8, 0.95);
+        backdrop-filter: blur(10px);
+        height: 100vh;
+    }
+    
+    .nav-principal.active .nav-container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        position: relative;
+    }
+
+    .menu-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  color: var(--white);
+  font-size: 26px;
+  cursor: pointer;
+  width: 40px;
+  height: 40px;
+  position: relative;
+  z-index: 1001;
+}
+    
+    /* Mostrar los enlaces del nav cuando está activo */
+    .nav-principal.active .desktop-only {
+        display: flex !important;
+        flex-direction: column;
+        align-items: center;
+        gap: 30px;
+        margin: 30px 0;
+    }
+    
+    .nav-principal.active .nav-links a {
+        font-size: 1.2rem;
+    }
+    
+    /* Mantener el logo visible y centrado */
+    .nav-principal.active .nav-logo {
+        order: -1;
+        margin-bottom: 40px;
+    }
+    
+    /* Posicionar el botón de cierre en la esquina superior derecha */
+    .nav-principal.active .menu-toggle {
+        position: absolute;
+        top: 25px;
+        right: 30px;
+    }
+    
+    /* Cambiar iconos */
+    .menu-toggle .menu-icon {
+        display: block;
+    }
+    
+    .menu-toggle .close-icon {
+        display: none;
+    }
+    
+    .menu-toggle.open .menu-icon {
+        display: none;
+    }
+    
+    .menu-toggle.open .close-icon {
+        display: block;
+    }
+
+    .nav-principal.active .menu-toggle .menu-icon {
+    display: none;
+}
+
+.nav-principal.active .menu-toggle .close-icon {
+    display: block;
+}
+
+}
+
+@media (max-width: 480px) {
+.noVisibleMobile {
+  display: none;
+}
+
+    .serif-text { letter-spacing: 4px; }
+    .script-text { margin-top: -10px; margin-left: 0; }
+    .hero-content { padding: 0 20px; }
+}
