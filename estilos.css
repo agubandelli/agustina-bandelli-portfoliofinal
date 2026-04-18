@@ -199,7 +199,11 @@ body {
 .gabinete-contenedor {
     padding: 60px 5%; /* Reducimos padding superior e inferior */
     background-color: #1a0f08;
-    background-image: url('img/textura-madera-oscura.jpg');
+    background: linear-gradient(rgba(26, 15, 8, 0.5), rgba(26, 15, 8, 0.5)), 
+                url('img/header-pagina-web.png');
+    background-size: cover;
+    background-position: center;
+
 }
 
 .estante {
@@ -220,9 +224,9 @@ body {
 }
 
 .cuadro {
-    background: white;
+    
     padding: 10px 10px 30px 10px; /* Bordes más finos para que la imagen luzca más */
-    box-shadow: 10px 15px 25px rgba(0,0,0,0.5);
+   /* box-shadow: 10px 15px 25px rgba(0,0,0,0.5);*/
     transform: rotate(-1deg);
     transition: 0.4s ease;
     cursor: pointer;
