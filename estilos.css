@@ -22,6 +22,15 @@ body {
     font-family: var(--sans-font);
 }
 
+.h2-gabinete {
+    font-family: var(--serif-font);
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    text-align: center;
+    margin: 1rem 0;
+   
+}
+
+
 /* --- NAVEGACIÓN --- */
 
 .nav-principal {
@@ -160,103 +169,208 @@ body {
     color: var(--color-oscuro);
 }
 
-/* --- CONTENEDOR GENERAL --- */
-.cabecera-mueble {
-    text-align: center;
-    padding-bottom: 40px;
-    border-bottom: 2px solid rgba(255, 215, 175, 0.1); /* Una línea sutil */
-    margin-bottom: 20px;
+/* --- CONTENEDOR DEL ESTANTE --- */
+.estante-dibujos {
+    margin-bottom: 80px;
+    position: relative;
+    padding-top: 50px; /* Da aire arriba para que el cartelito no se corte */
 }
 
-.titulo-mueble {
-    font-family: var(--serif-font);
-    font-size: clamp(2rem, 5vw, 3.5rem);
-    text-transform: uppercase;
-    letter-spacing: 10px;
-    color: var(--color-crema);
-    opacity: 0.9;
-    
-    /* Efecto de tallado: una sombra clarita abajo y una oscura arriba */
-    text-shadow: 
-        1px 1px 0px rgba(255, 255, 255, 0.1), 
-        -1px -1px 2px rgba(0, 0, 0, 0.8);
-    
+/* Alinea todos los dibujos tocando la base */
+.items-sobre-madera {
+    display: grid;
+    /* Esto crea 3 columnas iguales */
+    grid-template-columns: repeat(3, 1fr); 
+    gap: 10px;
+    align-items: end; /* Siguen apoyando en la madera */
+    justify-items: center; /* Centra cada dibujo en su columna */
+    padding: 0 10px;
+    margin-bottom: -5px;
+    position: relative;
+    z-index: 2;
+}
+
+/* --- LOS DIBUJOS / BOTONES --- */
+.dibujo-link {
     position: relative;
     display: inline-block;
+    text-align: center;
+    text-decoration: none;
+    transition: transform 0.3s ease;
 }
 
-/* Opcional: Agregar unos adornos laterales al título */
-.titulo-mueble::before,
-.titulo-mueble::after {
-    content: "•";
-    margin: 0 20px;
-    font-size: 1.5rem;
-    vertical-align: middle;
-    color: var(--color-crema);
-    opacity: 0.5;
+.dibujo-link:hover {
+    transform: translateY(-10px); /* El dibujo da un "saltito" al pasar el mouse */
 }
 
-.gabinete-contenedor {
-    padding: 60px 5%; /* Reducimos padding superior e inferior */
-    background-color: #1a0f08;
-    background: linear-gradient(rgba(26, 15, 8, 0.5), rgba(26, 15, 8, 0.5)), 
-                url('img/header-pagina-web.png');
-    background-size: cover;
-    background-position: center;
-
+.dibujo-img {
+    max-height: 160px; /* Controla que no sean gigantes. Ajustalo a tu gusto */
+    width: auto;
+    /* En vez de box-shadow, usamos drop-shadow que sigue el contorno del PNG */
+    filter: drop-shadow(5px 10px 8px rgba(0,0,0,0.6)); 
+    transition: filter 0.3s ease;
 }
 
-.estante {
-    margin-bottom: 20px; /* ANTES 120px - Ahora están mucho más pegados */
-    position: relative;
-    padding: 20px 40px; /* Reducimos el aire interno del estante */
-    background: rgba(0, 0, 0, 0.2);
-    box-shadow: inset 0 10px 30px rgba(0,0,0,0.8);
+.dibujo-link:hover .dibujo-img {
+    filter: drop-shadow(5px 15px 12px rgba(0,0,0,0.8)) brightness(1.1);
 }
 
-/* --- LOS CUADROS MÁS GRANDES --- */
-.fila-cuadros {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px; /* Reducimos el espacio entre cuadros para que puedan crecer */
-    align-items: end;
-    justify-items: center;
-}
-
-.cuadro {
+/* --- EL CARTELITO EN HOVER (Tooltip) --- */
+.tooltip-nombre {
+    position: absolute;
+    top: -50px; /* Lo ubicamos arriba del dibujo */
+    left: 50%;
+    transform: translateX(-50%) translateY(10px); /* Centrado y un poquito bajado */
+    background-color: var(--color-crema);
+    color: var(--color-oscuro);
+    padding: 6px 16px;
+    border-radius: 4px;
+    font-family: var(--sans-font);
+    font-size: 0.85rem;
+    font-weight: 600;
+    white-space: nowrap; /* Para que el texto no se rompa en dos líneas */
     
-    padding: 10px 10px 30px 10px; /* Bordes más finos para que la imagen luzca más */
-   /* box-shadow: 10px 15px 25px rgba(0,0,0,0.5);*/
-    transform: rotate(-1deg);
-    transition: 0.4s ease;
-    cursor: pointer;
-    width: 95%; /* ANTES 90% - Ahora ocupan casi todo el ancho de su columna */
+    /* Lo ocultamos por defecto */
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    pointer-events: none; /* Para que no interfiera con el click */
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
 }
 
-.cuadro img {
-    width: 100%;
-    height: auto;
-    display: block; /* Quita espacios extra abajo de la imagen */
+/* El triangulito de abajo del cartel (estilo globo de diálogo) */
+.tooltip-nombre::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-width: 5px 5px 0;
+    border-style: solid;
+    border-color: var(--color-crema) transparent transparent transparent;
 }
 
-/* --- ESTANTE DE ADORNOS (Más compacto) --- */
-.fila-adornos {
-    display: flex;
-    justify-content: space-around;
-    align-items: flex-end;
-    padding-bottom: 5px;
+/* Aparece el cartelito al hacer hover */
+.dibujo-link:hover .tooltip-nombre {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0); /* Sube suavemente */
 }
 
-/* --- LA TABLA DE MADERA (El conector) --- */
-.tabla-madera {
-    height: 35px; /* Un poquito más gruesa para que se note el nivel */
+/* --- LA MADERA Y EL TEXTO --- */
+.tabla-madera-grabada {
+    height: 40px;
     width: 100%;
     background: linear-gradient(to bottom, #4d311d, #1a0f08);
     border-top: 2px solid rgba(255,255,255,0.05);
-    box-shadow: 0 5px 15px rgba(0,0,0,0.6);
-    margin-top: 10px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.6);
+    display: flex;
+    justify-content: center; /* Centra el texto en el medio del estante */
+    align-items: center;
+    position: relative;
+    z-index: 1;
 }
 
+.texto-grabado {
+    font-family: var(--serif-font);
+    font-size: 0.9rem;
+    letter-spacing: 4px;
+    color: #2b1a10; /* Color muy oscuro para simular el tallado */
+    /* Este es el truco para que parezca hundido en la madera */
+    text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.1), -1px -1px 2px rgba(0, 0, 0, 0.8);
+}
+
+/* --- RESPONSIVE (MÓVIL) --- */
+@media (max-width: 768px) {
+    .items-sobre-madera {
+        flex-wrap: wrap; /* Permite que los dibujos caigan a la fila de abajo si no hay lugar */
+        gap: 30px;
+        padding-bottom: 10px;
+    }
+    .dibujo-img {
+        max-height: 120px; /* Achicamos un poco los dibujos en celu */
+    }
+}
+
+
+
+/* --- PROYECTOSSSSSSSSSSSSSSSSSSSSSSSSSS --- */
+.detalle-proyecto {
+    padding: 140px 10% 80px 10%; 
+    background-color: #f4eee8; 
+    color: #1a0f08;
+}
+
+.proyecto-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 60px;
+    gap: 40px;
+}
+
+.columna-izquierda {
+    flex: 2; /* Toma más espacio */
+}
+
+.proyecto-titulo {
+    font-family: var(--sans-font); /* Montserrat */
+    font-size: 4rem;
+    font-weight: 500;
+    margin-bottom: 30px;
+    letter-spacing: -1px;
+}
+
+.proyecto-descripcion {
+    font-family: var(--sans-font);
+    font-size: 1.1rem;
+    line-height: 1.6;
+    max-width: 600px;
+}
+
+.columna-derecha {
+    flex: 1;
+    text-align: right;
+    padding-top: 20px;
+}
+
+.label-herramientas {
+    display: block;
+    font-size: 0.8rem;
+    letter-spacing: 2px;
+    margin-bottom: 15px;
+    opacity: 0.7;
+}
+
+.tags-container {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+}
+
+.tag {
+    background-color: #a8a8a8; /* Gris de la imagen */
+    color: white;
+    padding: 5px 15px;
+    border-radius: 20px;
+    font-size: 0.7rem;
+    font-family: var(--sans-font);
+}
+
+.proyecto-imagen-full img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 4px; /* Un toque suave */
+}
+
+.nav-fija-proyecto {
+    /* Le aplicamos los mismos estilos que tiene cuando hacés scroll */
+    background: var(--color-oscuro) !important;
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(245, 230, 211, 0.1);
+    padding: 15px 0 !important;
+}
 
 
 /* ------ DESKTOP ------ */
@@ -387,6 +501,45 @@ body {
 .nav-principal.active .menu-toggle .close-icon {
     display: block;
 }
+
+.proyecto-header {
+        flex-direction: column; /* Se apila en tablet/móvil */
+        text-align: left;
+    }
+    
+    .columna-derecha {
+        text-align: left;
+    }
+    
+    .tags-container {
+        justify-content: flex-start;
+    }
+    
+    .proyecto-titulo {
+        font-size: 3rem;
+    }
+
+    .items-sobre-madera {
+        /* En mobile bajamos el espacio entre dibujos */
+        gap: 5px;
+        padding: 0 5px;
+    }
+
+    .dibujo-img {
+        /* Bajamos el tamaño máximo para forzar que entren los 3 en linea */
+        /* Si aun así quedan grandes, bajalo a 80px */
+        max-height: 90px; 
+    }
+
+    .texto-grabado {
+        font-size: 0.7rem; /* Texto de la madera más chico para que no rompa */
+        letter-spacing: 2px;
+    }
+
+    /* Opcional: Ocultar el cartelito en mobile porque no hay 'hover' con mouse */
+    .tooltip-nombre {
+        display: none;
+    }
 
 }
 
